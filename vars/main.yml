@@ -1,0 +1,5 @@
+repo_url: "https://github.com/leonard185/yolo.git"
+project_dir: "/home/vagrant/yolo"
+mongo_image: "mongo:6"
+backend_port: 5000
+client_port: 3000

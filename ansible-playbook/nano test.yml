@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Say hello
+      debug:
+        msg: "Hello from inside done by kiragu!"

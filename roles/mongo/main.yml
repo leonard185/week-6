@@ -1,0 +1,12 @@
+- name: Pull MongoDB image
+  docker_image:
+    name: "{{ mongo_image }}"
+    source: pull
+
+- name: Run MongoDB container
+  docker_container:
+    name: yolo_mongo
+    image: "{{ mongo_image }}"
+    state: started
+    ports:
+      - "27017:27017"

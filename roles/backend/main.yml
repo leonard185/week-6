@@ -1,0 +1,11 @@
+- name: Clone backend code
+  git:
+    repo: "{{ repo_url }}"
+    dest: "{{ project_dir }}"
+    force: yes
+
+- name: Build and run backend container
+  docker_compose:
+    project_src: "{{ project_dir }}"
+    build: yes
+    state: present
