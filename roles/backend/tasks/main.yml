@@ -1,0 +1,28 @@
+---
+- block:
+    - name: "Backend | Build image (if Dockerfile exists)"
+      community.docker.docker_image:
+        name: "{{ images.backend.name }}"
+        tag: "{{ images.backend.tag }}"
+        build:
+          path: "{{ backend_build_context }}"
+      when: backend_build_context is exists
+      register: backend_build
+      failed_when: false
+
+    - name: "Backend | Pull image if build not done"
+      community.docker.docker_image:
+        name: "{{ backend_image }}"
+        source: pull
+      when: backend_build is skipped or backend_build is failed
+
+    - name: "Backend | Run container"
+      community.docker.docker_container:
+        name: "{{ backend_container_name }}"
+        image: "{{ backend_image }}"
+        env: "{{ backend_env }}"
+        restart_policy: always
+        published_ports:
+          - "{{ backend_port }}:{{ backend_port }}"
+        state: started
+  tags: ["{{ tag_backend }}"]
