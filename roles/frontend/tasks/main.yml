@@ -1,0 +1,28 @@
+---
+- block:
+    - name: "Frontend | Build image (if Dockerfile exists)"
+      community.docker.docker_image:
+        name: "{{ images.frontend.name }}"
+        tag: "{{ images.frontend.tag }}"
+        build:
+          path: "{{ frontend_build_context }}"
+      when: frontend_build_context is exists
+      register: frontend_build
+      failed_when: false
+
+    - name: "Frontend | Pull image if build not done"
+      community.docker.docker_image:
+        name: "{{ frontend_image }}"
+        source: pull
+      when: frontend_build is skipped or frontend_build is failed
+
+    - name: "Frontend | Run container"
+      community.docker.docker_container:
+        name: "{{ frontend_container_name }}"
+        image: "{{ frontend_image }}"
+        env: "{{ frontend_env }}"
+        restart_policy: always
+        published_ports:
+          - "{{ frontend_port }}:{{ frontend_port }}"
+        state: started
+  tags: ["{{ tag_frontend }}"]
