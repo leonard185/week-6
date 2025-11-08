@@ -1,19 +1,20 @@
+# Week 6 – Ansible Instrumentation (Stage 1 & Stage 2)
+
+This repo provisions a Vagrant Ubuntu 20.04 VM and uses Ansible to containerize an e-commerce web app (frontend, backend, db) into microservices. Stage 2 demonstrates Terraform ↔︎ Ansible orchestration with a single command.
+
+## Quick start
+
+```bash
+# 1) Bring up Vagrant VM
 vagrant up
-ansible-playbook playbook.yml
-# 🚀 Automated Microservices Deployment using Vagrant, Ansible & Terraform
 
-## 📘 Overview
-This project demonstrates the **complete automation** of a microservices application stack using **Vagrant**, **Ansible**, and **Terraform**.
+# 2) Stage 1 run (Ansible only)
+ansible-playbook playbooks/site.yml
 
-The goal is to provision a consistent virtualized environment with Vagrant, configure and deploy containerized services with Ansible, and optionally manage cloud infrastructure with Terraform.
+# 3) Access
+Frontend: http://192.168.56.10:3000
+Backend : http://192.168.56.10:8080
+DB Port : 5432
 
----
-
-## 🧱 Architecture
-**Tools Used:**
-- 🖥 **Vagrant** – Creates and manages the virtual machine environment.
-- ⚙️ **Ansible** – Configures the VM and deploys containers automatically.
-- ☁️ **Terraform** – (Optional) Provisions external infrastructure such as servers or networks.
-- 🐳 **Docker** – Hosts the microservices containers for the app.
-
-**Structure Overview:**
+# 4) Stage 2 (Terraform + Ansible)
+ansible-playbook playbooks/stage2-site.yml

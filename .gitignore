@@ -1,0 +1,14 @@
+# Ansible
+*.retry
+
+# Terraform backups/state backups (keep main state, ignore backups)
+**/.terraform/*
+**/.terraform.lock.hcl
+**/terraform.tfstate.backup
+**/*.tfvars
+
+# Node / Python typical
+node_modules/
+__pycache__/
+dist/
+build/
