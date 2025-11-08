@@ -18,3 +18,9 @@ DB Port : 5432
 
 # 4) Stage 2 (Terraform + Ansible)
 ansible-playbook playbooks/stage2-site.yml
+
+### Project name
+Terraform exposes `project_name` (default: `yolo_ecommerce`). Override via:
+
+```bash
+terraform -chdir=stage2/terraform apply -var 'project_name=myproj'
